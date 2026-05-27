@@ -1,0 +1,381 @@
+{
+  "auth_users": [
+    {
+      "id": "00000000-0000-0000-0000-000000000001",
+      "email": "admin@canteen.com",
+      "password": "developerBypassPassword123!",
+      "raw_user_meta_data": {
+        "full_name": "Canteen Admin",
+        "role": "admin",
+        "onboarding_completed": true
+      }
+    },
+    {
+      "id": "00000000-0000-0000-0000-000000000002",
+      "email": "student@canteen.com",
+      "password": "developerBypassPassword123!",
+      "raw_user_meta_data": {
+        "full_name": "Student Developer",
+        "role": "student",
+        "onboarding_completed": true
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": "00000000-0000-0000-0000-000000000001",
+      "email": "admin@canteen.com",
+      "full_name": "Canteen Admin",
+      "roll_number": "ADMIN-001",
+      "year": null,
+      "branch": null,
+      "phone": null,
+      "role": "admin",
+      "wallet_balance": 0,
+      "onboarding_completed": true,
+      "created_at": "2026-05-22T00:00:00.000Z"
+    },
+    {
+      "id": "00000000-0000-0000-0000-000000000002",
+      "email": "student@canteen.com",
+      "full_name": "MUMMADI SHIVA GANESH",
+      "roll_number": "23N81A6659",
+      "year": 2,
+      "branch": "AIML",
+      "phone": "6304732932",
+      "role": "student",
+      "wallet_balance": 218,
+      "onboarding_completed": true,
+      "created_at": "2026-05-22T00:00:00.000Z"
+    },
+    {
+      "id": "ou5dGhEtFhRa1LcArT9Bd9sFTtH3",
+      "created_at": "2026-05-27T06:34:32.285Z",
+      "email": "tobiu8238@gmail.com",
+      "full_name": "MUMMADI SHIVA GANESH",
+      "roll_number": "23N81A6659",
+      "year": 1,
+      "branch": "AIML",
+      "phone": "9493746294",
+      "role": "student",
+      "wallet_balance": 0,
+      "onboarding_completed": true
+    }
+  ],
+  "menu_items": [
+    {
+      "id": "10000000-0000-0000-0000-000000000001",
+      "name": "Butter Chicken",
+      "description": "Creamy tomato-based curry with tender chicken",
+      "image_url": null,
+      "category": "lunch",
+      "price": 180,
+      "rating": 4.9,
+      "prep_time": "20 min",
+      "is_veg": false,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000002",
+      "name": "Paneer Tikka Masala",
+      "description": "Grilled paneer in rich spiced gravy",
+      "image_url": null,
+      "category": "lunch",
+      "price": 150,
+      "rating": 4.8,
+      "prep_time": "15 min",
+      "is_veg": true,
+      "is_special": true,
+      "available": true,
+      "created_at": "2026-05-22T00:00:01.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000003",
+      "name": "Veg Biryani",
+      "description": "Aromatic basmati rice with mixed vegetables",
+      "image_url": null,
+      "category": "lunch",
+      "price": 120,
+      "rating": 4.7,
+      "prep_time": "18 min",
+      "is_veg": true,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:02.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000004",
+      "name": "Chicken Fried Rice",
+      "description": "Wok-tossed rice with chicken and veggies",
+      "image_url": null,
+      "category": "lunch",
+      "price": 130,
+      "rating": 4.6,
+      "prep_time": "12 min",
+      "is_veg": false,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:03.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000005",
+      "name": "Masala Dosa",
+      "description": "Crispy dosa with spiced potato filling",
+      "image_url": null,
+      "category": "breakfast",
+      "price": 60,
+      "rating": 4.8,
+      "prep_time": "10 min",
+      "is_veg": true,
+      "is_special": true,
+      "available": true,
+      "created_at": "2026-05-22T00:00:04.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000006",
+      "name": "Idli Sambar",
+      "description": "Steamed rice cakes with lentil soup",
+      "image_url": null,
+      "category": "breakfast",
+      "price": 40,
+      "rating": 4.5,
+      "prep_time": "8 min",
+      "is_veg": true,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:05.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000007",
+      "name": "Samosa",
+      "description": "Crispy pastry with spiced potato filling",
+      "image_url": null,
+      "category": "snacks",
+      "price": 25,
+      "rating": 4.4,
+      "prep_time": "5 min",
+      "is_veg": true,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:06.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000008",
+      "name": "French Fries",
+      "description": "Crispy golden fries with seasoning",
+      "image_url": null,
+      "category": "snacks",
+      "price": 70,
+      "rating": 4.3,
+      "prep_time": "8 min",
+      "is_veg": true,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:07.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000009",
+      "name": "Cold Coffee",
+      "description": "Chilled coffee with ice cream",
+      "image_url": null,
+      "category": "beverages",
+      "price": 60,
+      "rating": 4.6,
+      "prep_time": "5 min",
+      "is_veg": true,
+      "is_special": true,
+      "available": true,
+      "created_at": "2026-05-22T00:00:08.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000010",
+      "name": "Mango Lassi",
+      "description": "Refreshing mango yogurt drink",
+      "image_url": null,
+      "category": "beverages",
+      "price": 50,
+      "rating": 4.7,
+      "prep_time": "5 min",
+      "is_veg": true,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:09.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000011",
+      "name": "Gulab Jamun",
+      "description": "Sweet milk dumplings in sugar syrup",
+      "image_url": null,
+      "category": "desserts",
+      "price": 40,
+      "rating": 4.8,
+      "prep_time": "5 min",
+      "is_veg": true,
+      "is_special": true,
+      "available": true,
+      "created_at": "2026-05-22T00:00:10.000Z"
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000012",
+      "name": "Ice Cream Sundae",
+      "description": "Vanilla ice cream with chocolate sauce",
+      "image_url": null,
+      "category": "desserts",
+      "price": 80,
+      "rating": 4.5,
+      "prep_time": "5 min",
+      "is_veg": true,
+      "is_special": false,
+      "available": true,
+      "created_at": "2026-05-22T00:00:11.000Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "585c49d4-b6d1-4525-aacc-aae6acf45dd6",
+      "created_at": "2026-05-23T07:48:54.795Z",
+      "booking_id": "CC-916752",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "total_amount": 94,
+      "payment_method": "wallet",
+      "payment_status": "paid",
+      "order_status": "Completed",
+      "qr_code": "CC-916752",
+      "preparation_time": 15,
+      "pickup_deadline": "2026-05-23T08:33:54.785Z"
+    },
+    {
+      "id": "a6be60d6-9183-4d65-a842-9a558c244aef",
+      "created_at": "2026-05-27T06:06:46.438Z",
+      "booking_id": "CC-720531",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "total_amount": 94,
+      "payment_method": "upi",
+      "payment_status": "paid",
+      "order_status": "Pending",
+      "qr_code": "CC-720531",
+      "preparation_time": 15,
+      "pickup_deadline": "2026-05-27T06:51:46.434Z"
+    },
+    {
+      "id": "cf7ace1e-e278-45f7-b5f1-fbaad800edbd",
+      "created_at": "2026-05-27T06:07:12.832Z",
+      "booking_id": "CC-925120",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "total_amount": 94,
+      "payment_method": "upi",
+      "payment_status": "paid",
+      "order_status": "Pending",
+      "qr_code": "CC-925120",
+      "preparation_time": 15,
+      "pickup_deadline": "2026-05-27T06:52:12.830Z"
+    }
+  ],
+  "order_items": [
+    {
+      "id": "5e68fb33-0e8b-4324-8104-bf42bad2e0ae",
+      "created_at": "2026-05-23T07:48:54.799Z",
+      "order_id": "585c49d4-b6d1-4525-aacc-aae6acf45dd6",
+      "menu_item_id": "10000000-0000-0000-0000-000000000012",
+      "quantity": 1,
+      "price": 80
+    },
+    {
+      "id": "992236e2-179f-4242-93e7-fca85cf417eb",
+      "created_at": "2026-05-27T06:06:46.445Z",
+      "order_id": "a6be60d6-9183-4d65-a842-9a558c244aef",
+      "menu_item_id": "10000000-0000-0000-0000-000000000012",
+      "quantity": 1,
+      "price": 80
+    },
+    {
+      "id": "ed4c5386-4f71-4308-9ad6-e4a827d6d230",
+      "created_at": "2026-05-27T06:07:12.840Z",
+      "order_id": "cf7ace1e-e278-45f7-b5f1-fbaad800edbd",
+      "menu_item_id": "10000000-0000-0000-0000-000000000012",
+      "quantity": 1,
+      "price": 80
+    }
+  ],
+  "wallet_transactions": [
+    {
+      "id": "5a0ffd5b-20ac-4a92-b5ba-d5d132257e1b",
+      "created_at": "2026-05-23T07:21:55.989Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "type": "debit",
+      "amount": 94,
+      "description": "Order payment for CC-588495"
+    },
+    {
+      "id": "bfda8e04-132d-482a-b4e7-e0e8b577ed06",
+      "created_at": "2026-05-23T07:22:01.230Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "type": "debit",
+      "amount": 94,
+      "description": "Order payment for CC-410380"
+    },
+    {
+      "id": "e79b9dc9-2c3b-45a5-baab-92af76e0302a",
+      "created_at": "2026-05-23T07:48:54.791Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "type": "debit",
+      "amount": 94,
+      "description": "Order payment for CC-916752"
+    }
+  ],
+  "payment_settings": [
+    {
+      "id": "20000000-0000-0000-0000-000000000001",
+      "upi_id": "6304732932@upi",
+      "merchant_name": "Campus Canteen",
+      "updated_at": "2026-05-22T00:00:00.000Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "0e676c4e-451f-4309-9ec2-7779720fa206",
+      "created_at": "2026-05-23T07:48:54.805Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "title": "Order Placed!",
+      "message": "Your order CC-916752 has been placed. Current status: Pending.",
+      "read": true
+    },
+    {
+      "id": "8d032470-1887-4185-88e4-b2c4ed820cab",
+      "created_at": "2026-05-27T06:05:10.743Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "title": "Order Status: Preparing",
+      "message": "Your order CC-916752 status has been updated to Preparing."
+    },
+    {
+      "id": "ad75da01-4b94-4305-8742-87deb8b23fe9",
+      "created_at": "2026-05-27T06:05:13.421Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "title": "Order Status: Ready",
+      "message": "Your order CC-916752 status has been updated to Ready."
+    },
+    {
+      "id": "0878111d-cd95-4191-8b2e-ec1785ebaecc",
+      "created_at": "2026-05-27T06:05:15.762Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "title": "Order Status: Completed",
+      "message": "Your order CC-916752 status has been updated to Completed."
+    },
+    {
+      "id": "4ab0e9c2-6428-48cc-9263-41d933ee033a",
+      "created_at": "2026-05-27T06:06:46.454Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "title": "Order Placed!",
+      "message": "Your order CC-720531 has been placed. Current status: Pending."
+    },
+    {
+      "id": "8c67ba66-c4f4-48e1-aae7-1e9e8b14761d",
+      "created_at": "2026-05-27T06:07:12.855Z",
+      "user_id": "00000000-0000-0000-0000-000000000002",
+      "title": "Order Placed!",
+      "message": "Your order CC-925120 has been placed. Current status: Pending."
+    }
+  ]
+}
