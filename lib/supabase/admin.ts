@@ -6,14 +6,14 @@ import { isJwtShaped } from "@/lib/supabase/auth-server";
 /** Service-role client for server-side DB access (bypasses RLS; never sends a user JWT). */
 export function createAdminClient(): SupabaseClient {
   const key = env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!key) {
-    throw new Error(
-      "SUPABASE_SERVICE_ROLE_KEY is missing. Add it in Vercel → Settings → Environment Variables (use the service_role secret from Supabase → Project Settings → API).",
+  
+  if (!key || !isJwtShaped(key)) {
+    console.error(
+      "[createAdminClient] FATAL: SUPABASE_SERVICE_ROLE_KEY is missing or invalid. Current value preview:", 
+      key ? `${key.slice(0, 10)}...` : "undefined"
     );
-  }
-  if (!isJwtShaped(key)) {
     throw new Error(
-      "SUPABASE_SERVICE_ROLE_KEY is not a valid Supabase JWT (expected 3 dot-separated parts). Copy the service_role key from Supabase → Project Settings → API.",
+      "SUPABASE_SERVICE_ROLE_KEY is missing or invalid. Go to Vercel → Settings → Environment Variables and add the service_role key from Supabase → Project Settings → API."
     );
   }
 
