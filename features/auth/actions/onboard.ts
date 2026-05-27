@@ -1,7 +1,7 @@
 "use server";
 
-import { createAdminClient } from "@/lib/supabase/admin";
-import { resolveServerUser } from "@/lib/supabase/auth-server";
+import { createClient } from "@/lib/supabase/server";
+// Removed direct resolveServerUser import; using createClient for auth
 import { onboardingSchema, type OnboardingInput } from "@/validators/onboarding";
 
 export async function onboardUser(input: OnboardingInput) {
@@ -13,12 +13,11 @@ export async function onboardUser(input: OnboardingInput) {
   const { fullName, rollNumber, year, branch, phone } = validation.data;
 
   try {
-    const user = await resolveServerUser();
-    if (!user) {
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
       return { success: false, error: "Unauthorized user. Please log in first." };
     }
-
-    const supabase = createAdminClient();
 
     const { error: profileError } = await supabase
       .from("users")
