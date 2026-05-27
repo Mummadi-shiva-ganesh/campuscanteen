@@ -39,7 +39,10 @@ export default function OnboardingPage() {
   const onSubmit = async (data: OnboardingInput) => {
     setSubmitting(true)
     try {
-      await onboardUser(data)
+      const res = await onboardUser(data)
+      if (!res.success) {
+        throw new Error(res.error)
+      }
       toast.success("Profile setup completed successfully!")
       
       // Update state in Zustand store and redirect
