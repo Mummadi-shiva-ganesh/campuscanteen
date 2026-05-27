@@ -1,19 +1,24 @@
 import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { env, isMockMode } from "@/lib/env";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { resolveServerUser } from "@/lib/supabase/auth-server";
 import { createServerMockClient } from "@/lib/supabase/mock-server";
+
+function attachUserShim(client: SupabaseClient, user: User) {
+  client.auth.getUser = async () => ({ data: { user }, error: null });
+}
 
 export async function createClient() {
   if (isMockMode) {
     const cookieStore = await cookies();
 
     return createServerMockClient(
-      // Cookie getter: read the raw sb-mock-session cookie value
       () => {
         const allCookies = cookieStore.getAll();
         return allCookies.map((c) => `${c.name}=${c.value}`).join("; ");
       },
-      // Cookie setter: write the session cookie
       (user) => {
         try {
           if (user) {
@@ -31,17 +36,23 @@ export async function createClient() {
           // setAll may fail when called from a Server Component (read-only context)
         }
       },
-    ) as any;
+    ) as unknown as SupabaseClient;
+  }
+
+  const user = await resolveServerUser();
+
+  // Firebase (or any authenticated server request): use service role only.
+  // Never use createServerClient with user cookies — stale tokens cause PGRST301.
+  if (user) {
+    const client = createAdminClient();
+    attachUserShim(client, user);
+    return client;
   }
 
   const cookieStore = await cookies();
-
-  // In production / real mode, use the service role key if available to bypass RLS for server-side actions
-  const activeKey = env.SUPABASE_SERVICE_ROLE_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  const client = createServerClient(
+  return createServerClient(
     env.NEXT_PUBLIC_SUPABASE_URL,
-    activeKey,
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
@@ -50,35 +61,13 @@ export async function createClient() {
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, options),
             );
           } catch {
-            // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+            // ignored in read-only Server Component context
           }
         },
       },
-    }
+    },
   );
-
-  // If user is authenticated via Firebase (stored in sb-mock-session cookie),
-  // override the client's auth methods so Server Actions recognise their authenticated session.
-  const mockSessionCookie = cookieStore.get("sb-mock-session");
-  if (mockSessionCookie) {
-    try {
-      const decoded = JSON.parse(Buffer.from(mockSessionCookie.value, "base64").toString("utf-8"));
-      if (decoded) {
-        client.auth.getUser = async () => {
-          return { data: { user: decoded }, error: null };
-        };
-        client.auth.getSession = async () => {
-          const session = { access_token: "mock-session", refresh_token: "mock-refresh", user: decoded };
-          return { data: { session }, error: null };
-        };
-      }
-    } catch {}
-  }
-
-  return client;
 }

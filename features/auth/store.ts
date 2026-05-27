@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { createClient } from "@/lib/supabase/client";
 import { type User } from "@supabase/supabase-js";
+import { syncFirebaseSession, clearFirebaseSession } from "@/features/auth/actions/session";
+import { isMockMode } from "@/lib/env";
 
 export interface UserProfile {
   id: string;
@@ -30,6 +32,21 @@ interface AuthState {
 }
 
 const ADMIN_EMAIL = "shivaganeshmummadi7@gamil.com";
+
+async function persistFirebaseSession(userObj: {
+  id: string;
+  email: string;
+  user_metadata: Record<string, unknown>;
+}) {
+  if (isMockMode) {
+    if (typeof document !== "undefined") {
+      const encoded = btoa(JSON.stringify(userObj));
+      document.cookie = `sb-mock-session=${encoded}; path=/; max-age=${60 * 60 * 24 * 7}`;
+    }
+    return;
+  }
+  await syncFirebaseSession(userObj);
+}
 
 export const useAuthStore = create<AuthState>((set, get) => {
   const supabase = createClient();
@@ -112,11 +129,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
               },
             } as any;
 
-            // Sync cookie for Next.js Middleware check
-            if (typeof document !== "undefined") {
-              const encoded = btoa(JSON.stringify(userObj));
-              document.cookie = `sb-mock-session=${encoded}; path=/; max-age=${60 * 60 * 24 * 7}`;
-            }
+            await persistFirebaseSession(userObj);
 
             set({ 
               user: userObj, 
@@ -203,11 +216,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
             },
           } as any;
 
-          // Set cookie for middleware
-          if (typeof document !== "undefined") {
-            const encoded = btoa(JSON.stringify(userObj));
-            document.cookie = `sb-mock-session=${encoded}; path=/; max-age=${60 * 60 * 24 * 7}`;
-          }
+          await persistFirebaseSession(userObj);
 
           set({ user: userObj });
 
@@ -254,10 +263,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
       } catch {}
       
       await supabase.auth.signOut();
-      
-      if (typeof document !== "undefined") {
-        document.cookie = "sb-mock-session=; path=/; max-age=0";
-      }
+      await clearFirebaseSession();
       
       set({ user: null, profile: null, loading: false });
       window.location.href = "/login";
@@ -284,11 +290,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
           }
         };
 
-        // Sync cookie for middleware
-        if (typeof document !== "undefined") {
-          const encoded = btoa(JSON.stringify(updatedUser));
-          document.cookie = `sb-mock-session=${encoded}; path=/; max-age=${60 * 60 * 24 * 7}`;
-        }
+        await persistFirebaseSession(updatedUser);
 
         set({ 
           user: updatedUser,

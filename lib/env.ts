@@ -16,8 +16,16 @@ const getEnv = () => {
 
   // 2. Validate Anon Key
   let supabaseAnonKey = rawAnonKey.trim();
+  const isProduction = process.env.NODE_ENV === "production";
   if (!supabaseAnonKey || supabaseAnonKey.length < 10) {
-    console.warn(`[WARNING] NEXT_PUBLIC_SUPABASE_ANON_KEY is missing or too short. Falling back to dummy key.`);
+    if (isProduction) {
+      throw new Error(
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY is missing. Set it in Vercel environment variables.",
+      );
+    }
+    console.warn(
+      `[WARNING] NEXT_PUBLIC_SUPABASE_ANON_KEY is missing or too short. Falling back to dummy key.`,
+    );
     supabaseAnonKey = "dummy";
   }
 
