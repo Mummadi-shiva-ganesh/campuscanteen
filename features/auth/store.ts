@@ -31,8 +31,6 @@ interface AuthState {
   refreshProfile: () => Promise<void>;
 }
 
-const ADMIN_EMAIL = "shivaganeshmummadi7@gamil.com";
-
 async function persistFirebaseSession(userObj: {
   id: string;
   email: string;
@@ -68,52 +66,12 @@ export const useAuthStore = create<AuthState>((set, get) => {
         // Listen to Firebase auth changes
         onAuthStateChanged(firebaseAuth, async (fbUser) => {
           if (fbUser) {
-            const isAdminEmail = fbUser.email === ADMIN_EMAIL;
-            
             // First, fetch profile data from users table
-            let { data: profileData, error: profileError } = await supabase
+            const { data: profileData } = await supabase
               .from("users")
               .select("*")
               .eq("id", fbUser.uid)
               .single();
-
-            // If it is the admin email, force role to admin and onboarding to completed
-            if (isAdminEmail && (!profileData || profileData.role !== "admin" || !profileData.onboarding_completed)) {
-              const profilePayload = {
-                id: fbUser.uid,
-                email: fbUser.email || "",
-                full_name: fbUser.displayName || "Canteen Admin",
-                roll_number: "ADMIN-001",
-                year: null,
-                branch: null,
-                phone: null,
-                role: "admin" as const,
-                wallet_balance: profileData?.wallet_balance || 0,
-                onboarding_completed: true,
-              };
-
-              if (profileData) {
-                await supabase
-                  .from("users")
-                  .update({ role: "admin", onboarding_completed: true, full_name: profilePayload.full_name })
-                  .eq("id", fbUser.uid);
-              } else {
-                const { data: newProfile } = await supabase
-                  .from("users")
-                  .insert(profilePayload)
-                  .select()
-                  .single();
-                profileData = newProfile;
-              }
-              
-              if (profileData) {
-                profileData.role = "admin";
-                profileData.onboarding_completed = true;
-              } else {
-                profileData = profilePayload as any;
-              }
-              profileError = null;
-            }
 
             const onboardingCompleted = profileData ? profileData.onboarding_completed === true : false;
             const role = profileData ? profileData.role : "student";
@@ -156,51 +114,12 @@ export const useAuthStore = create<AuthState>((set, get) => {
         const fbUser = result.user;
 
         if (fbUser) {
-          const isAdminEmail = fbUser.email === ADMIN_EMAIL;
-
           // Fetch or Seed user profile in DB
           let { data: profileData, error: fetchError } = await supabase
             .from("users")
             .select("*")
             .eq("id", fbUser.uid)
             .single();
-
-          if (isAdminEmail && (!profileData || profileData.role !== "admin" || !profileData.onboarding_completed)) {
-            const profilePayload = {
-              id: fbUser.uid,
-              email: fbUser.email || "",
-              full_name: fbUser.displayName || "Canteen Admin",
-              roll_number: "ADMIN-001",
-              year: null,
-              branch: null,
-              phone: null,
-              role: "admin" as const,
-              wallet_balance: profileData?.wallet_balance || 0,
-              onboarding_completed: true,
-            };
-
-            if (profileData) {
-              await supabase
-                .from("users")
-                .update({ role: "admin", onboarding_completed: true, full_name: profilePayload.full_name })
-                .eq("id", fbUser.uid);
-            } else {
-              const { data: newProfile } = await supabase
-                .from("users")
-                .insert(profilePayload)
-                .select()
-                .single();
-              profileData = newProfile;
-            }
-            
-            if (profileData) {
-              profileData.role = "admin";
-              profileData.onboarding_completed = true;
-            } else {
-              profileData = profilePayload as any;
-            }
-            fetchError = null;
-          }
 
           const onboardingCompleted = profileData ? profileData.onboarding_completed === true : false;
           const role = profileData ? profileData.role : "student";
