@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: campus-canteen
+    env: docker
+    dockerfilePath: Dockerfile
+    startCommand: pnpm start
+    envVars:
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        value: ${NEXT_PUBLIC_SUPABASE_URL}
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        value: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        value: ${SUPABASE_SERVICE_ROLE_KEY}
+        secret: true
+      - key: NEXT_PUBLIC_MOCK_SUPABASE
+        value: ${NEXT_PUBLIC_MOCK_SUPABASE}
+    autoDeploy: true
